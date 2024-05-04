@@ -12,4 +12,5 @@ public class MessageDTO {
     private String sender;
     private String receiver;
     private String senderProfilePic;
+    private String message;
 }

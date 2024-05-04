@@ -26,12 +26,13 @@ public class MessageService {
         for (MessageEntity messageEntity : messageEntities) {
             String messageSender = messageEntity.getSender();
             String messageReceiver = messageEntity.getReceiver();
-            if ((messageSender == userName && messageReceiver == sender) || (messageSender == sender && messageReceiver == userName)) {
+            if ((messageSender.equals(userName) && messageReceiver.equals(sender)) ||
+                    (messageSender.equals(sender) && messageReceiver.equals(userName))) {
                 MessageDTO messageDTO = new MessageDTO();
                 messageDTO.setId(messageEntity.getId());
                 messageDTO.setSender(messageSender);
                 messageDTO.setReceiver(messageReceiver);
-
+                messageDTO.setMessage(messageEntity.getMessage());
                 String senderProfile = userService.getProfilePhoto(messageSender);
                 messageDTO.setSenderProfilePic(senderProfile);
                 messages.add(messageDTO);
