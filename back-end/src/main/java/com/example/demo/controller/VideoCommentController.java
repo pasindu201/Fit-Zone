@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.CommentDTO;
-import com.example.demo.entity.CommentEntity;
-import com.example.demo.service.CommentsService;
+import com.example.demo.dto.VideoCommentDTO;
+import com.example.demo.entity.VideoCommentEntity;
+import com.example.demo.service.VideoCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +12,15 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/comments")
-public class CommentController {
+@RequestMapping("/VideoComments")
+public class VideoCommentController {
 
     @Autowired
-    private CommentsService commentsService;
+    private VideoCommentService commentsService;
 
-    @GetMapping("/numberOfComments/{pictureId}")
-    public ResponseEntity<Integer> numberOfComments(@PathVariable("pictureId") int pictureId) {
-        int numberOfComments = commentsService.numberOfComments(pictureId);
+    @GetMapping("/numberOfComments/{videoId}")
+    public ResponseEntity<Integer> numberOfComments(@PathVariable("videoId") int videoId) {
+        int numberOfComments = commentsService.numberOfComments(videoId);
         if (numberOfComments >= 0) {
             return ResponseEntity.ok(numberOfComments);
         } else {
@@ -28,9 +28,9 @@ public class CommentController {
         }
     }
 
-    @GetMapping("/allComments/{pictureId}")
-    public ResponseEntity<List<CommentDTO>> getComments(@PathVariable("pictureId") int pictureId) {
-        List<CommentDTO> commentDTOList = commentsService.getComments(pictureId);
+    @GetMapping("/allComments/{videoId}")
+    public ResponseEntity<List<VideoCommentDTO>> getComments(@PathVariable("videoId") int videoId) {
+        List<VideoCommentDTO> commentDTOList = commentsService.getComments(videoId);
         if (commentDTOList.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -39,12 +39,12 @@ public class CommentController {
     }
 
     @PostMapping("/saveComment")
-    public ResponseEntity<String> saveComment(@RequestParam("pictureId") int pictureId,
+    public ResponseEntity<String> saveComment(@RequestParam("videoId") int videoId,
                                               @RequestParam("commenterName") String commenterName,
                                               @RequestParam("comment") String comment) {
         try {
-            CommentEntity commentEntity = new CommentEntity();
-            commentEntity.setPictureId(pictureId);
+            VideoCommentEntity commentEntity = new VideoCommentEntity();
+            commentEntity.setVideoId(videoId);
             commentEntity.setCommenterName(commenterName);
             commentEntity.setComment(comment);
             commentsService.saveComment(commentEntity);
@@ -56,8 +56,8 @@ public class CommentController {
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Boolean> deletePost(@PathVariable("id") int id) {
+    public ResponseEntity<Void> deletePost(@PathVariable("id") int id) {
         commentsService.deleteComment(id);
-        return ResponseEntity.ok(Boolean.TRUE);
+        return ResponseEntity.noContent().build();
     }
 }

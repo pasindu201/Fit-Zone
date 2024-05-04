@@ -56,7 +56,7 @@
     
                 text-align: right; // Align text to the right
                 color: #000000; // Text color for sent messages
-                background-color: #479cf7; // Background color for sent messages
+                background-color: #64acf9; // Background color for sent messages
                 border-radius: 15px; // Rounded corners
                 padding: 8px 12px; // Add padding
                 display: inline-block; // Display as an inline block
@@ -81,8 +81,8 @@
                 gap: 10px;
 
                 img {
-                    width: 40px;
-                    height: 40px;
+                    width: 30px;
+                    height: 30px;
                     border-radius: 50%;
                     object-fit: cover;
                 }

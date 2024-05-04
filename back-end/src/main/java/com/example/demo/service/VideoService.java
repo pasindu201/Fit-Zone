@@ -21,6 +21,12 @@ public class VideoService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private VideoLikeService videoLikeService;
+
+    @Autowired
+    private VideoCommentService videoCommentService;
+
     public VideoEntity uploadVideo(Blob video, String description, String userName) {
         VideoEntity videoPost = new VideoEntity();
         videoPost.setVideo(video);
@@ -62,13 +68,20 @@ public class VideoService {
         List<VideoDTO> videos = new ArrayList<>(length);
         for (VideoEntity videoEntity : videoEntities) {
             VideoDTO video = new VideoDTO();
-            video.setId(videoEntity.getId());
+            int videoId = videoEntity.getId();
+            video.setId(videoId);
             video.setDescription(videoEntity.getDescription());
             String userName = videoEntity.getUserName();
             video.setUserName(userName);
             Blob videoBlob = videoEntity.getVideo();
             String videoStr = encodeToString(videoBlob);
             video.setVideo(videoStr);
+
+            int likes = videoLikeService.numberOfLikes(videoId);
+            video.setLikes(likes);
+
+            int comments = videoCommentService.numberOfComments(videoId);
+            video.setComments(comments);
 
             String profilePhoto = userService.getProfilePhoto(userName);
 

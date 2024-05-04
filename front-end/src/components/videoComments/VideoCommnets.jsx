@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import "./comments.scss";
+import "./VideoComments.scss";
 import axios from "axios";
 
-const Comments = ({ postId, commenterName, setcomments, numberOfComments }) => {
+const VideoComments = ({ postId, commenterName, setcomments, numberOfComments }) => {
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
   const [profilePic, setProfilePic] = useState("");
@@ -27,7 +27,7 @@ const Comments = ({ postId, commenterName, setcomments, numberOfComments }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/comments/allComments/${postId}`);
+        const response = await axios.get(`http://localhost:8080/VideoComments/allComments/${postId}`);
         setComments(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -41,10 +41,10 @@ const Comments = ({ postId, commenterName, setcomments, numberOfComments }) => {
   const handleCommentSubmit = async () => {
     try {
       const formData = new FormData();
-      formData.append("pictureId", postId);
+      formData.append("videoId", postId);
       formData.append("commenterName", commenterName);
       formData.append("comment", newComment);
-      const response = await axios.post("http://localhost:8080/comments/saveComment", formData, {
+      const response = await axios.post("http://localhost:8080/VideoComments/saveComment", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -61,7 +61,7 @@ const Comments = ({ postId, commenterName, setcomments, numberOfComments }) => {
   const handleDeleteComment = async (id) => {
     try {
         // Send a DELETE request to the server to delete the comment with the specified ID
-        await axios.delete(`http://localhost:8080/comments/delete/${id}`);
+        await axios.delete(`http://localhost:8080/VideoComments/delete/${id}`);
         setNewComment(""); 
         setcomments(numberOfComments-1);
         alert("deleted successful.")
@@ -141,4 +141,4 @@ const Comments = ({ postId, commenterName, setcomments, numberOfComments }) => {
   );
 };
 
-export default Comments;
+export default VideoComments;

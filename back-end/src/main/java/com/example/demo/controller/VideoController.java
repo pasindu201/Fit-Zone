@@ -2,6 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.PostDTO;
 import com.example.demo.dto.VideoDTO;
+import com.example.demo.entity.LikeEntity;
+import com.example.demo.entity.VideoLikeEntity;
+import com.example.demo.service.VideoLikeService;
 import com.example.demo.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +25,9 @@ public class VideoController {
 
     @Autowired
     private VideoService videoService;
+
+    @Autowired
+    VideoLikeService videoLikeService;
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadVideoPost(@RequestParam("video") MultipartFile video,
@@ -67,5 +73,37 @@ public class VideoController {
         } else {
             return ResponseEntity.ok(videoDTOList);
         }
+    }
+
+    @DeleteMapping("delete/{name}/{videoId}")
+    public ResponseEntity<String> deleteLike(@PathVariable("name") String name,
+                                             @PathVariable("videoId") int videoId) {
+        if (videoLikeService.isLiked(name, videoId)) {
+            videoLikeService.deleteLike(name, videoId);
+            return ResponseEntity.ok("deleted");
+        }
+        return ResponseEntity.ok("no liked");
+    }
+
+    @PostMapping("setLike")
+    public ResponseEntity<String> setPost(@RequestParam("videoId") int videoId,
+                                          @RequestParam("likerName") String likerName){
+        try {
+            VideoLikeEntity like = new VideoLikeEntity();
+            like.setVideoId(videoId);
+            like.setLikerName(likerName);
+            if (!videoLikeService.isLiked(likerName, videoId)) {
+                videoLikeService.saveLike(like);
+            }
+            return ResponseEntity.ok().body("successfull");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload");
+        }
+    }
+
+    @GetMapping("isLiked/{likerName}/{videoId}")
+    public ResponseEntity<Boolean> checkLiked(@PathVariable("likerName") String likerName,
+                                              @PathVariable("videoId") int videoId) {
+        return ResponseEntity.ok(videoLikeService.isLiked(likerName, videoId)) ;
     }
 }

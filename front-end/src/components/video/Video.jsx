@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
-import Comments from "../comments/Comments";
+import Comments from "../videoComments/VideoCommnets";
 import "./Video.scss";
 import axios from 'axios';
 
@@ -13,17 +13,59 @@ const Video = ({ video, userName }) => {
     const [liked, setLiked] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const videoRef = useRef(null);
+    const [likes, setLikes] = useState(video.likes);
+    const [comments, setComments] = useState(video.comments);
 
-    const toggleVideo = () => {
-        if (videoRef.current.paused) {
-            videoRef.current.play();
-        } else {
-            videoRef.current.pause();
+    useEffect(() => {
+        setLikes(video.likes);
+    }, [video]);
+
+    useEffect(() => {
+        const fetchLikes = async () => {
+          try {
+            const response = await axios.get(`http://localhost:8080/api/videos/isLiked/${userName}/${video.id}`);
+            setLiked(response.data);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+        fetchLikes();
+    }, [userName]);
+    
+    const likePressed = () => {
+      const deleteLike = async () => {
+        try {
+          await axios.delete(`http://localhost:8080/api/videos/delete/${userName}/${video.id}`);
+          setLiked(false);
+        } catch (error) {
+          console.error('Error fetching data:', error);
         }
-    };
-
-    const toggleLike = () => {
-        setLiked(!liked);
+      };
+    
+      const setLike = async () => {
+        try {
+          const formData = new FormData();
+          formData.append("videoId", video.id);
+          formData.append("likerName", userName);    
+          const response = await axios.post("http://localhost:8080/api/videos/setLike", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          setLiked(true);;
+        } catch (error) {
+          console.error("Error posting image:", error); 
+        }
+      };
+    
+      if (liked) {
+        deleteLike();
+        setLikes(likes-1);
+      }
+      else {
+        setLike();
+        setLikes(likes+1);
+      }
     };
 
     const deletePost = async (id) => {
@@ -97,20 +139,19 @@ const Video = ({ video, userName }) => {
                         src={`data:video/mp4;base64,${video.video}`}
                         controls
                         loop
-                        onClick={toggleVideo}
                     />
                 </div>
                 <div className="info">
-                    <div className="item" onClick={toggleLike}>
-                        {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-                        {liked ? "13 Likes" : "12 Likes"}
+                    <div className="item" onClick={likePressed}>
+                       {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
+                       <p>{likes}</p>
                     </div>
                     <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
                         <TextsmsOutlinedIcon />
-                        {commentOpen ? "13 Comments" : "12 Comments"}
+                        <p>{comments}</p>
                     </div>
                 </div>
-                {commentOpen && <Comments commenterName={userName} />}
+                {commentOpen && <Comments commenterName={userName} postId ={video.id} setcomments={setComments} numberOfComments={comments}/>}
             </div>
         </div>
     );

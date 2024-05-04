@@ -13,6 +13,13 @@ const Post = ({ post, userName }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(post.likes);
+  const [comments, setComments] = useState(post.comments);
+
+  useEffect(() => {
+    setLikes(post.likes);
+    setComments(post.comments)
+}, [post]);
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -54,9 +61,11 @@ const likePressed = () => {
 
   if (liked) {
     deleteLike();
+    setLikes(likes - 1);
   }
   else {
     setLike();
+    setLikes(likes + 1);
   }
 };
 
@@ -131,18 +140,18 @@ const handleUpdateDescription = () => {
         <div className="info">
           <div className="item" onClick={() => likePressed()}>
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            <p>{post.likes}</p>
+            <p>{likes}</p>
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
-            <p>{post.comments}</p>
+            <p>{comments}</p>
           </div>
           <div className="item">
             <ShareOutlinedIcon />
             Share
           </div>
         </div>
-        {commentOpen && <Comments postId={post.id} commenterName={userName} />}
+        {commentOpen && <Comments postId={post.id} commenterName={userName} setcomments={setComments} numberOfComments={comments}/>}
       </div>
     </div>
   );

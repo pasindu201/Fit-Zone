@@ -17,7 +17,7 @@ public interface LikesRepository extends JpaRepository<LikeEntity, Integer> {
     @Transactional
     @Modifying
     @Query("DELETE FROM LikeEntity u WHERE u.likerName = :likerName AND u.pictureId = :pictureId")
-    int deleteByLikerNameAndPictureId(String likerName, int pictureId);
+    void deleteByLikerNameAndPictureId(String likerName, int pictureId);
 
     @Query("SELECT u FROM LikeEntity u WHERE u.likerName = :likerName AND u.pictureId = :pictureId")
     List<LikeEntity> getLikeEntityByLikerNameAndPictureId(String likerName, int pictureId);
