@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.PostDTO;
+import com.example.demo.entity.LikeEntity;
 import com.example.demo.entity.PostEntity;
+import com.example.demo.service.LikesService;
 import com.example.demo.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,9 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private LikesService likesService;
 
     @GetMapping("/allPosts")
     public ResponseEntity<List<PostDTO>> allPosts() {
@@ -62,4 +67,37 @@ public class PostController {
         postService.updateDescription(id, newDescription);
         return ResponseEntity.ok("Successfully updated video");
     }
+
+    @DeleteMapping("delete/{name}/{pictureId}")
+    public ResponseEntity<String> deleteLike(@PathVariable("name") String name,
+                                           @PathVariable("pictureId") int pictureId) {
+        if (likesService.isLiked(name, pictureId)) {
+            likesService.deleteLike(name, pictureId);
+            return ResponseEntity.ok("deleted");
+        }
+        return ResponseEntity.ok("no liked");
+    }
+
+    @PostMapping("setLike")
+    public ResponseEntity<String> setPost(@RequestParam("pictureId") int pictureId,
+                                          @RequestParam("likerName") String likerName){
+        try {
+            LikeEntity like = new LikeEntity();
+            like.setPictureId(pictureId);
+            like.setLikerName(likerName);
+            if (!likesService.isLiked(likerName, pictureId)) {
+                likesService.saveLike(like);
+            }
+            return ResponseEntity.ok().body("successfull");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload");
+        }
+    }
+
+    @GetMapping("isLiked/{likerName}/{postId}")
+    public ResponseEntity<Boolean> checkLiked(@PathVariable("likerName") String likerName,
+                                              @PathVariable("postId") int postId) {
+        return ResponseEntity.ok(likesService.isLiked(likerName, postId)) ;
+    }
+
 }

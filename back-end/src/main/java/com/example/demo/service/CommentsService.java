@@ -32,7 +32,7 @@ public class CommentsService {
             CommentDTO comment = new CommentDTO();
             String commenterName = commentEntity.getCommenterName(); // Corrected line
             comment.setCommenterName(commenterName);
-
+            comment.setId(commentEntity.getId());
             // get profile picture of commenter.
             String profilePicture = userService.getProfilePhoto(commenterName);
             comment.setProfilePicture(profilePicture);
@@ -50,5 +50,9 @@ public class CommentsService {
 
     public void saveComment(CommentEntity comment) {
         commentRepository.save(comment);
+    }
+
+    public void deleteComment(int commentId) {
+        commentRepository.deleteById(commentId);
     }
 }

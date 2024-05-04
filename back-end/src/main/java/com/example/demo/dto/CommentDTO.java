@@ -10,6 +10,7 @@ import java.sql.Blob;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDTO {
+    private int id;
     private String commenterName;
     private String profilePicture;
     private String comment;

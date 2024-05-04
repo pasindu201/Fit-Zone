@@ -6,15 +6,59 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 const Post = ({ post, userName }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [liked, setLiked] = useState(false);
 
-  //TEMPORARY
-  const liked = false;
+  useEffect(() => {
+    const fetchLikes = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/isLiked/${userName}/${post.id}`);
+        setLiked(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchLikes();
+}, [userName]);
+
+const likePressed = () => {
+  const deleteLike = async () => {
+    try {
+      await axios.delete(`http://localhost:8080/delete/${userName}/${post.id}`);
+      setLiked(false);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const setLike = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("pictureId", post.id);
+      formData.append("likerName", userName);    
+      const response = await axios.post("http://localhost:8080/setLike", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setLiked(true);;
+    } catch (error) {
+      console.error("Error posting image:", error); 
+    }
+  };
+
+  if (liked) {
+    deleteLike();
+  }
+  else {
+    setLike();
+  }
+};
 
   const deletePost = async (id) => {
     try {
@@ -85,7 +129,7 @@ const handleUpdateDescription = () => {
         </div>
         <hr/>
         <div className="info">
-          <div className="item">
+          <div className="item" onClick={() => likePressed()}>
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
             <p>{post.likes}</p>
           </div>

@@ -38,11 +38,14 @@
       margin: 30px 0px;
       display: flex;
       flex-direction: column;
+      background-color: #e8eefc;
+      border-radius: 5px;
 
       .user {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin: 10px;
 
         .userInfo {
           display: flex;
