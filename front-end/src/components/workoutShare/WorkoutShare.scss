@@ -1,0 +1,81 @@
+@import "../../style.scss";
+
+.workout-share {
+  @include themify($themes) {
+    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    border-radius: 20px;
+    background-color: themed("bg");
+    color: themed("textColor");
+    margin-bottom: 20px;
+
+    .container {
+      padding: 40px;
+
+      .main-details {
+        width: 70%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding-left: 40px;
+        padding-right: 40px;
+        margin-bottom: 20px;
+
+        .input-container {
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+      }
+
+      .ranges {
+        h3 {
+            margin-top: 40px;
+         }
+
+        div {
+            margin-bottom: 10px;
+         }
+
+      }
+    
+
+      .top {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        input {
+          border: none;
+          outline: none;
+          padding: 20px 10px;
+          background-color: transparent;
+          width: 60%;
+          color: themed("textColor");
+        }
+      }      
+    }
+  }
+}
+
+.bottom {
+    margin-top: 10px;
+    button {
+      border: none;
+      padding: 5px;
+      color: white;
+      cursor: pointer;
+      background-color: #5271ff;
+      border-radius: 3px;
+    }
+  }

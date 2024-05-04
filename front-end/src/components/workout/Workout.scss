@@ -1,0 +1,150 @@
+@import "../../style.scss";
+
+.workout {
+    @include themify($themes) {
+        -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+        -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+        box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+        border-radius: 20px;
+        background-color: themed("bg");
+        color: themed("textColor");
+    // Container styles
+
+    .container {
+
+        .user {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+    
+            .userInfo {
+              display: flex;
+              gap: 20px;
+    
+              img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+              }
+    
+              .details {
+                display: flex;
+                flex-direction: column;
+    
+                .name {
+                  font-weight: 500;
+                }
+    
+                .date {
+                  font-size: 12px;
+                }
+              }
+            }
+    
+            // Add styles for the menu and dropdown items
+            .menu {
+              position: relative;
+    
+              // Dropdown menu container
+              .dropdown-menu {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background-color: themed("bg");
+                border: 1px solid themed("border");
+                border-radius: 8px;
+                padding: 5px 10px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                z-index: 10;
+    
+                // Style the buttons inside the dropdown menu
+                button {
+                  display: block;
+                  width: 100%;
+                  padding: 8px;
+                  text-align: left;
+                  border: none;
+                  background-color: transparent;
+                  color: themed("textColor");
+                  cursor: pointer;
+    
+                  &:hover {
+                    background-color: themed("hoverBg");
+                  }
+    
+                  &:first-child {
+                    border-bottom: 1px solid themed("border");
+                  }
+                }
+              }
+            }
+          }
+        // Workout plan name and description styles
+        h2 {
+            font-size: 24px; // Larger font size for workout plan name
+            margin-bottom: 10px;
+            color: #333; // Darker text color
+        }
+
+        p {
+            margin-bottom: 20px; // Space between description and exercises
+            color: #555; // Dark gray text color
+        }
+
+        // Exercise styles
+        .exercises {
+            .exercise {
+                margin-bottom: 20px; // Space between exercises
+
+                h3 {
+                    font-size: 18px; // Smaller font size for exercise name
+                    color: #444; // Medium dark text color
+                    margin-bottom: 5px; // Space below exercise name
+                }
+
+                p {
+                    margin-bottom: 10px; // Space below exercise description
+                    color: #666; // Gray text color
+                }
+
+                .exercise-image {
+                    width: 100%; // Full width
+                    max-height: 300px; // Maximum height
+                    object-fit: cover; // Preserve aspect ratio and fit within area
+                    border-radius: 5px; // Slightly rounded corners
+                }
+            }
+        }
+
+        // Comment toggle button styles
+        .info {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #e2e2e2; // Light gray background
+            border-radius: 5px; // Rounded corners
+            margin-top: 20px; // Space above comment toggle button
+
+            .item {
+                display: flex;
+                align-items: center;
+
+                // Icon styles
+                svg {
+                    margin-right: 5px; // Space between icon and text
+                }
+
+                span {
+                    font-size: 14px; // Smaller font size for comment text
+                }
+            }
+
+            &:hover {
+                background-color: #d1d1d1; // Darker gray on hover
+            }
+        }
+    }
+}
+}

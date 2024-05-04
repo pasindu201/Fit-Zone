@@ -1,0 +1,110 @@
+@import "../../style.scss";
+
+.video {
+  @include themify($themes) {
+    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    border-radius: 20px;
+    background-color: themed("bg");
+    color: themed("textColor");
+
+    .container {
+      padding: 20px;
+
+      .user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .userInfo {
+          display: flex;
+          gap: 20px;
+
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .details {
+            display: flex;
+            flex-direction: column;
+
+            .name {
+              font-weight: 500;
+            }
+
+            .date {
+              font-size: 12px;
+            }
+          }
+        }
+
+        // Add styles for the menu and dropdown items
+        .menu {
+          position: relative;
+
+          // Dropdown menu container
+          .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: themed("bg");
+            border: 1px solid themed("border");
+            border-radius: 8px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+
+            // Style the buttons inside the dropdown menu
+            button {
+              display: block;
+              width: 100%;
+              padding: 8px;
+              text-align: left;
+              border: none;
+              background-color: transparent;
+              color: themed("textColor");
+              cursor: pointer;
+
+              &:hover {
+                background-color: themed("hoverBg");
+              }
+
+              &:first-child {
+                border-bottom: 1px solid themed("border");
+              }
+            }
+          }
+        }
+      }
+
+      .content {
+        margin: 20px 0px;
+
+        video {
+          width: 100%;
+          max-height: 500px;
+          object-fit: cover;
+          margin-top: 20px;
+        }
+      }
+
+      .info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+// Chat Page Styles
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; // Ensure the chat container fills the height of the viewport
+    width: 100%; // Ensure the chat container fills the width of the viewport
+
+    // Chat history section
+    .chat-history {
+        flex: 1; // Take up most of the available space
+        overflow-y: auto; // Allow vertical scrolling when content overflows
+        padding: 10px; // Add padding for spacing
+        border-bottom: 1px solid #ccc; // Add a border between chat history and input area
+
+        // Chat message styles
+        .chat-message {
+            margin-bottom: 10px; // Add spacing between messages
+
+            // Common styles for all messages
+            span {
+                font-weight: bold; // Bold the sender's name
+            }
+
+            // Style for sent messages
+            &.sent {
+                text-align: right; // Align text to the right
+                color: #fff; // Text color for sent messages
+                background-color: #007bff; // Background color for sent messages
+                border-radius: 15px; // Rounded corners
+                padding: 8px 12px; // Add padding
+                display: inline-block; // Display as an inline block
+                max-width: 60%; // Limit the width of the message
+            }
+
+            // Style for received messages
+            &.received {
+                text-align: left; // Align text to the left
+                color: #000; // Text color for received messages
+                background-color: #f8f9fa; // Background color for received messages
+                border-radius: 15px; // Rounded corners
+                padding: 8px 12px; // Add padding
+                display: inline-block; // Display as an inline block
+                max-width: 60%; // Limit the width of the message
+            }
+        }
+    }
+
+    // Chat input area
+    .chat-input {
+        display: flex;
+        padding: 10px; 
+        position: fixed;
+        bottom: 0;
+
+        img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+          }
+
+        // Text area for typing a new message
+        textarea {
+            flex: 1; // Allow the text area to take up most of the space
+            border: 1px solid #ccc; // Add a border
+            border-radius: 5px; // Add rounded corners
+            padding: 8px; // Add padding
+            resize: none; // Disable resizing
+            width: 500px;
+            margin-right: 10px;
+        }
+
+        // Send button
+        button {
+            margin-left: 10px; // Add spacing between the text area and button
+            background-color: #007bff; // Bootstrap primary color
+            color: #fff; // White text color
+            border: none; // Remove border
+            border-radius: 5px; // Add rounded corners
+            padding: 8px 16px; // Add padding
+            cursor: pointer; // Change cursor to pointer when hovered
+            font-weight: bold; // Bold text
+
+            &:hover {
+                background-color: #0056b3; // Darker shade of blue on hover
+            }
+        }
+    }
+}
