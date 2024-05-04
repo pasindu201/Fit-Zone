@@ -51,14 +51,38 @@
         resize: none;
       }
 
-      .recipe {
-        width: 100%;
-        height: 140px;
+      .price {
+        width: 40%;
+        height: 20px;
         resize: none;
       }
 
-      .nutritions {
+      .ingredients {
         width: 100%;
+        height: 60px;
+        resize: none;
+      }
+
+      .manufacture {
+        width: 100%;
+        height: 60px;
+        resize: none;
+      }
+
+      .brand {
+        width: 100%;
+        height: 60px;
+        resize: none;
+      }
+
+      .howToUse {
+        width: 100%;
+        height: 60px;
+        resize: none;
+      }
+
+      .fravours {
+        width: 60%;
         height: 60px;
         resize: none;
       }

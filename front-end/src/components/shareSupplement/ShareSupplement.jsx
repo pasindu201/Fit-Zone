@@ -14,7 +14,6 @@ const ShareSupplement = ({ userName, profilePic }) => {
   const [brandDetails, setBrandDetails] = useState("");
   const [howToUse, setHowToUse] = useState("");
   const [flavours, setFlavours] = useState("");
-  const [comments, setComments] = useState(0);
 
   const handleImageChange = (event) => {
     setSelectedImage(event.target.files[0]);
@@ -35,12 +34,12 @@ const ShareSupplement = ({ userName, profilePic }) => {
       formData.append("howToUse", howToUse);
       formData.append("flavours", flavours);
 
-      const response = await axios.post("http://localhost:8080/shareSupplements", formData, {
+      const response = await axios.post("http://localhost:8080/api/supplements/save", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response.data); // Handle success response
+      console.log(response.data); 
       alert("Supplement post successful!");
     } catch (error) {
       console.error("Error posting image:", error); // Handle error
@@ -58,7 +57,7 @@ const ShareSupplement = ({ userName, profilePic }) => {
         </div>
         <input className="name-input"
           type="text"
-          placeholder={`Enter Name of the Meal `}
+          placeholder={`Enter Name of the Supplement `}
           value={supplementName} // Bind value of input field to meal name
           onChange={(e) => setSupplementName(e.target.value)}
         />
@@ -76,7 +75,7 @@ const ShareSupplement = ({ userName, profilePic }) => {
           <span>Price</span>
           <hr />
         </div>
-        <textarea className="recipe"
+        <textarea className="price"
           type="text"
           placeholder={`Enter price `}
           value={price} // Bind value of input field to recipe
@@ -96,7 +95,7 @@ const ShareSupplement = ({ userName, profilePic }) => {
           <span>Manufacturer Details</span>
           <hr />
         </div>
-        <textarea className="manufacturer"
+        <textarea className="manufacture"
           type="text"
           placeholder={`Enter Manufacturer details `}
           value={manufacturer} // Bind value of input field to recipe
@@ -106,7 +105,7 @@ const ShareSupplement = ({ userName, profilePic }) => {
           <span>Brand Details</span>
           <hr />
         </div>
-        <textarea className="brandDetails"
+        <textarea className="brand"
           type="text"
           placeholder={`Enter Brand details `}
           value={brandDetails} // Bind value of input field to recipe
@@ -126,7 +125,14 @@ const ShareSupplement = ({ userName, profilePic }) => {
           <span>Available Flavours</span>
           <hr />
         </div>
+        <textarea className="fravours"
+          type="text"
+          placeholder={`Enter What are the avilable flavours `}
+          value={flavours} // Bind value of input field to recipe
+          onChange={(e) => setFlavours(e.target.value)}
+        />
         <hr />
+       
         {previewImage && (
           <img
             src={previewImage}

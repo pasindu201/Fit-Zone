@@ -83,6 +83,7 @@ const handleUpdateDescription = () => {
           <p>{post.description}</p>
           <img src={`data:image/jpeg;base64,${post.post}`} alt="Profile" />
         </div>
+        <hr/>
         <div className="info">
           <div className="item">
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
