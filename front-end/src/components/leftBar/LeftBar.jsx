@@ -63,11 +63,11 @@ const LeftBar = ({ userName }) => {
             <img src={Supliment} alt="" />
             <span>Supliments</span>
           </Link>
-          <Link to="/tutorials" className="item">
+          <Link to={`/videos/${userName}`} className="item">
             <img src={Tutorials} alt="" />
             <span>Tutorials</span>
           </Link>
-          <Link to="/courses" className="item">
+          <Link to={`/videos/${userName}`} className="item">
             <img src={Courses} alt="" />
             <span>Courses</span>
           </Link>

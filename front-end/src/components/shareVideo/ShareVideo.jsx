@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./ShareVideo.scss";
-import Image from "../../assets/img.png";
+import Image from "../../assets/4.png";
 
 const ShareVideo = ({ userName, profilePic }) => {
     const [selectedVideo, setSelectedVideo] = useState(null);

@@ -37,8 +37,8 @@ const Login = () => {
         </div>
         <div className="right">
           <div className="logo">
-            <img src={Logo} width={"30px"} alt="logo"></img>
-            <span>FitFam</span>
+            <img src={Logo} width={"80px"} alt="logo"></img>
+            <span>Fit Zone</span>
           </div>
           <h1>Login</h1>
           <form>

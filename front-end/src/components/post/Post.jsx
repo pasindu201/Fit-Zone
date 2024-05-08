@@ -72,7 +72,7 @@ const likePressed = () => {
   const deletePost = async (id) => {
     try {
         const response = await axios.delete(`http://localhost:8080/delete/${id}`);
-        alert("Video deleted successfully!");
+        alert("post deleted successfully!");
     } catch (error) {
         console.error('Error deleting post:', error);
         alert('Failed to delete post. Please try again.');

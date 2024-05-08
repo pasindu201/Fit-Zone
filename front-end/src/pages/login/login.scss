@@ -1,6 +1,6 @@
 .login {
   height: 100vh;
-  background-color: rgb(193, 190, 255);
+  background-color: rgb(176, 213, 255);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,7 +15,7 @@
 
     .left {
       flex: 1;
-      background: linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
+      background: linear-gradient(rgba(21, 67, 172, 0.5), rgba(39, 11, 96, 0.5)),
         url("../../assets/login.jpg")
           center;
       background-size: cover;
@@ -39,7 +39,7 @@
         padding: 10px;
         border: none;
         background-color: white;
-        color: rebeccapurple;
+        color: rgb(51, 102, 153);
         font-weight: bold;
         cursor: pointer;
       }
@@ -56,6 +56,12 @@
       .logo {
         display: flex;
         align-items: center;
+
+        span {
+          font-size: 40px;
+          color: #1812cd;
+          font-weight: bold;
+        }
         img{
           margin-right: 10px;
         }
@@ -71,7 +77,7 @@
         
         input {
         border: none;
-        border-bottom: 1px solid lightgray;
+        border-bottom: 1px solid rgb(198, 206, 214);
         padding: 20px 10px;
         }
         
@@ -79,7 +85,7 @@
           width: 50%;
           padding: 10px;
           border: none;
-          background-color: #938eef;
+          background-color: #4b7fbd;
           color: white;
           font-weight: bold;
           cursor: pointer;

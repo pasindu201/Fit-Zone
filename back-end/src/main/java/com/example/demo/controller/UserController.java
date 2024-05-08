@@ -19,7 +19,6 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<String> createUser(@RequestParam("profilePicture") MultipartFile image,
-                                             @RequestParam("name") String name,
                                              @RequestParam("userName") String userName,
                                              @RequestParam("password") String password) {
         try {
@@ -27,7 +26,6 @@ public class UserController {
             Blob blobImage = new javax.sql.rowset.serial.SerialBlob(bytes);
 
             UserEntity user = new UserEntity();
-            user.setName(name);
             user.setUserName(userName);
             user.setPassword(password);
             user.setProfilePicture(blobImage);

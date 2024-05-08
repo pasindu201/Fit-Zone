@@ -26,7 +26,6 @@ const Register = () => {
       userData.append("profilePicture", profilePicture);
       userData.append("userName", formData.username);
       userData.append("password", formData.password);
-      userData.append("name", formData.name);
 
       const response = await axios.post("http://localhost:8080/create", userData);
       console.log("Registration successful:", response.data);
@@ -72,13 +71,6 @@ const Register = () => {
               name="password"
               placeholder="Password"
               value={formData.password}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
               onChange={handleInputChange}
             />
             <button type="submit">Register</button>

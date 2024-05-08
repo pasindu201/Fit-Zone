@@ -16,16 +16,11 @@ const Navbar = ({ userName, profilePic }) => {
   return (
     <div className="navbar">
       <div className="left">
-        <img src={Logo} width={"30px"} alt="FitFam Logo"></img>
-        <span>FitFam</span>
+        <img src={Logo} width="50" style={{ borderRadius: '50%' }} alt="FitFam Logo" />
+        <span>Fit Zone</span>
         <Link to={`/home/${userName}`}>
           <HomeOutlinedIcon />
         </Link>
-        {darkMode ? (
-          <WbSunnyOutlinedIcon onClick={toggle} />
-        ) : (
-          <DarkModeOutlinedIcon onClick={toggle} />
-        )}
         <div className="search">
           <SearchOutlinedIcon />
           <input type="text" placeholder="Search..." />
